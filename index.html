@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<!--
+# HTML5 Video Kapitel-Marken setzen (per myjson) zum springen
+# Lizenz: BSD-Lizenz https://de.wikipedia.org/wiki/BSD-Lizenz
+# Datum: 10.12.2012
+# 
+-->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video-Kapitel</title>
+ 
+<script> 
+document.addEventListener('DOMContentLoaded', function () {
+
+function tformat(s) {
+	sec = parseInt(s);
+	secs = Math.floor(sec % 60);
+        secs = (secs >= 10) ? secs : "0" + secs;
+        mins = Math.floor(sec / 60);
+        mins = (mins >= 10) ? mins : "0" + mins;
+        return mins + ":" + secs + " min";
+    }
+
+var myjson = { "chapter": [ 
+                 { "time": 60, "name": "Kapitel 1" },
+	 	 { "time": 120, "name": "Kapitel 2" },
+		 { "time": 150, "name": "Kapitel 3" }
+	     ] }
+
+var kap = document.getElementById("kapitel");
+
+for (var i in myjson.chapter)
+{
+	kap.innerHTML += '<button type="button" onclick="chapter(' + myjson.chapter[i].time.toString() + ');" style="width: ' + document.getElementById("Video1").width + 'px;"><h3>' + myjson.chapter[i].name + ' (' + tformat(myjson.chapter[i].time) + ')</h3></button>';
+}
+
+}, false);
+
+function chapter(s) {
+       var video = document.getElementById("Video1");
+       t = parseInt(s);
+       video.currentTime = t;
+    } 
+</script>
+</head>
+<body>
+	<div id="video"> 
+		<video id="Video1" controls preload="auto" width="650" height="520" poster="http://www.openscreencast.de/archive/glimpse/fedora17beta_cinnamon_glimpse_037.png">
+ <source src="http://www.openscreencast.de/archive/glimpse/fedora17beta_cinnamon_glimpse_037.ogg" type='video/ogg' /> 
+		</video>
+	</div>
+	
+	<div id="kapitel">
+
+	</div>
+
+	
+</body>
+</html>
+
